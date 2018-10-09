@@ -7,7 +7,7 @@ Uses the credentials specified by "creds.txt", and logs all activity into "log.t
 same folder as "connect.py". 
 
 I have mine running as a cron job, at 5 rounds a day (approx. 65 requests a day).
-However, I'd suggest trying it out in your command line first. All output to the logfile, logs to terminal as well.
+However, I'd suggest trying it out in your command line first. All output to the logfile logs to terminal as well.
 
 ## This program requires the following installs:
   - python 2.7 (prob already have this)
