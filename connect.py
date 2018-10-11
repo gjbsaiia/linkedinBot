@@ -65,8 +65,11 @@ def process(user, password, round, limit):
 	options.set_headless(headless=True)
 	driver = webdriver.Firefox(firefox_options=options)
 	driver.get("https://www.linkedin.com")
-	element = driver.find_element_by_id("dismiss-alert")
-	element.click()
+	try:
+		element = driver.find_element_by_id("dismiss-alert")
+		element.click()
+	except selenium.common.exceptions.NoSuchElementException:
+		k = 0
 	element = driver.find_element_by_class_name("login-email")
 	element.send_keys(user)
 	element = driver.find_element_by_class_name("login-password")
@@ -94,7 +97,16 @@ def process(user, password, round, limit):
 			with open("log.txt", "a") as file:
 				file.write("  Round "+str(round.i)+": \n")
 			file.close()
-			while True:
+			elements = driver.find_elements_by_css_selector("button.button-secondary-small")
+			connections = len(elements)
+			while(connections == 0):
+				driver.refresh()
+				if(driver.current_url != "https://www.linkedin.com/mynetwork/"):
+					driver.get("https://www.linkedin.com/mynetwork/")
+				elements = driver.find_elements_by_css_selector("button.button-secondary-small")
+				connections = len(elements)
+			made = 0
+			while (made != connections):
 				try:
 					if(driver.current_url == "https://www.linkedin.com/mynetwork/"):
 						element = driver.find_element_by_class_name("pymk-card__name")
@@ -102,9 +114,13 @@ def process(user, password, round, limit):
 						if(name != lastname):
 							print("    Requested to connect with "+name+".")
 							with open("log.txt", "a") as file:
-								file.write("    Requested to connect with "+name+".\n")
+								try:
+									file.write("    Requested to connect with "+name+".\n")
+								except UnicodeEncodeError:
+									file.write("    Requested to connect with "+name.encode('ascii', 'ignore')+".\n")
 							file.close()
 							round.newConnect()
+							made += 1
 						element = driver.find_element_by_css_selector("button.button-secondary-small")
 						element.click()
 						lastname = name
