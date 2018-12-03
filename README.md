@@ -15,8 +15,7 @@ However, I'd suggest trying it out in your command line first. All output to the
   - selenium: "pip install selenium" (if you don't have pip, get pip)
   
 ## Account safety:
-Can't say how this will effect your account's status with Linkedin. I just hacked this together today, and used it
-rather recklessly as I was testing it. I would say that if you run it modestly (5 rounds a day), you should be fine. 
-I'll update this readme if my account is banned. Enjoy.
+Haven't been banned or recieved a warning. I've been using it rather intensely. I believe it's safe to use! Enjoy.
+
 #### Update
-Haven't been banned or recieved a warning. I've been using it rather intensely. I believe it's safe to use!
+I am no longer maintaining this project. If some of the element paths are no longer valid - please submit an issue with the correct path and I'll update. Thanks
